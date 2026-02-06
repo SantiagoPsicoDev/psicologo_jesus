@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mtro. Jesus Garcia Chavez | Salud Mental</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-body: #f9fafc;       
+            --bg-card: #ffffff;       
+            --primary: #2c3e50;       
+            --accent: #6c5ce7;        
+            --accent-light: #a29bfe;  
+            --text-body: #555555;     
+            --shadow-float: 0 10px 25px rgba(108, 92, 231, 0.15);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        a { text-decoration: none; }
+
+        .efecto-flotar {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .efecto-flotar:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-float);
+        }
+
+        .polaroid {
+            background: white;
+            padding: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transform: rotate(-3deg);
+            transition: all 0.4s ease;
+            max-width: 100%;
+            border-radius: 2px;
+        }
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.02);
+            z-index: 10;
+        }
+
+        /* --- CONTENEDORES --- */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        /* --- HERO SECTION --- */
+        header {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f9fafc 0%, #ece9f5 100%);
+            padding: 2rem;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .hero-img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            /* Placeholder temporal si no tienes foto aún */
+            background-color: #ddd; 
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-text .badge {
+            display: inline-block;
+            background: var(--accent-light);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* --- BOTONES --- */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            background: transparent;
+        }
+
+        /* --- SECCIÓN SOBRE MÍ --- */
+        .about-section {
+            background: white;
+            text-align: center;
+        }
+
+        /* --- SECCIÓN SERVICIOS (GRID) --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 15px;
+            border-top: 5px solid var(--accent);
+            text-align: center;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* --- CONTACTO / FORMSPREE --- */
+        .contact-section {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-section h2 { color: white; }
+
+        form {
+            max-width: 500px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        input, textarea {
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            font-family: 'Lato', sans-serif;
+        }
+
+        button[type="submit"] {
+            background-color: var(--accent);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #1a252f;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (min-width: 768px) {
+            .hero-content {
+                flex-direction: row;
+                text-align: left;
+            }
+            .hero-text h1 { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="inicio">
+        <div class="container hero-content">
+            <div class="hero-img-wrapper">
+                <img src="Psico_jesus_foto.jpeg" alt="Dr. Jesus Garcia" class="hero-img polaroid">
+            </div>
+            <div class="hero-text">
+                <span class="badge">MAESTRÍA EN CONCIENCIA PLENA APLICADA</span>
+                <h1>Mtro. Jesus Garcia Chavez</h1>
+                <p>Master en Conciencia Plena Aplicada. <br>Un espacio seguro para reconstruir tu bienestar emocional.<br> <strong>Cedula profesional: 14513295</strong> </p>
+                
+                <div class="cta-group">
+                    <a href="https://wa.me/5215581377798" class="btn btn-primary efecto-flotar">
+                        <i class="fab fa-whatsapp"></i> Agendar Cita
+                    </a>
+                    <a href="#servicios" class="btn btn-outline efecto-flotar">
+                        Ver Servicios
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="sobre-mi" class="about-section">
+        <div class="container">
+            <h2>Mi Enfoque Terapéutico</h2>
+            <p style="max-width: 700px; margin: 0 auto;">
+                Mi nombre es Jesus Garcia Chavez. Desde un enfoque en conciencia plena aplicada, creo firmemente en la capacidad de cada persona para sanar y crecer. Mi consultorio es un lugar libre de juicios donde trabajaremos juntos para entender tus procesos internos, ansiedad y relaciones.
+            </p>
+        </div>
+    </section>
+
+    <section id="servicios">
+        <div class="container">
+            <h2 style="text-align: center;">¿Cómo puedo ayudarte?</h2>
+            <div class="services-grid">
+                <div class="service-card efecto-flotar">
+                    <div class="service-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Terapia Individual</h3>
+                    <p>Atención focalizada en ansiedad, depresión y autoconocimiento.</p>
+                </div>
+                <div class="service-card efecto-flotar">
+                    <div class="service-icon"><i class="fas fa-user-friends"></i></div>
+                    <h3>Terapia de Pareja</h3>
+                    <p>Resolución de conflictos y mejora de la comunicación afectiva.</p>
+                </div>
+                <div class="service-card efecto-flotar">
+                    <div class="service-icon"><i class="fas fa-laptop-medical"></i></div>
+                    <h3>Consulta Online</h3>
+                    <p>Sesiones flexibles a distancia con la misma calidez y profesionalismo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <p>&copy; 2026 @SantiagoPsicoDev | Desarrollando autonomia</p>
+    </footer>
+
+</body>
+</html>
