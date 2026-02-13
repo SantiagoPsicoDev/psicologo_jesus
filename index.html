@@ -8,280 +8,344 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
         :root {
-            --bg-body: #f9fafc;       
+            --bg-body: #f4f7f9;       
             --bg-card: #ffffff;       
             --primary: #2c3e50;       
             --accent: #6c5ce7;        
             --accent-light: #a29bfe;  
-            --text-body: #555555;     
-            --shadow-float: 0 10px 25px rgba(108, 92, 231, 0.15);
+            --text-body: #4a4a4a;     
+            --shadow-float: 0 15px 35px rgba(108, 92, 231, 0.2);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Lato', sans-serif;
             background-color: var(--bg-body);
             color: var(--text-body);
-            line-height: 1.6;
+            line-height: 1.8;
+            overflow-x: hidden;
         }
 
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
         }
 
-        a { text-decoration: none; }
+        a { text-decoration: none; transition: var(--transition); }
 
-        .efecto-flotar {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        /* --- NAVEGACIÓN --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: var(--primary); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* --- UTILIDADES --- */
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 6rem 0;
+        }
+
+        .efecto-flotar { transition: var(--transition); }
         .efecto-flotar:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             box-shadow: var(--shadow-float);
         }
 
         .polaroid {
             background: white;
-            padding: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transform: rotate(-3deg);
-            transition: all 0.4s ease;
-            max-width: 100%;
-            border-radius: 2px;
-        }
-        .polaroid:hover {
-            transform: rotate(0deg) scale(1.02);
-            z-index: 10;
-        }
-
-        /* --- CONTENEDORES --- */
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 4rem 0;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            border-radius: 4px;
         }
 
         /* --- HERO SECTION --- */
         header {
-            min-height: 90vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, #f9fafc 0%, #ece9f5 100%);
-            padding: 2rem;
+            background: radial-gradient(circle at top right, #ece9f5 0%, #f9fafc 70%);
+            padding-top: 80px;
         }
 
         .hero-content {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2rem;
+            gap: 3rem;
+            text-align: center;
         }
 
         .hero-img {
-            width: 250px;
-            height: 250px;
+            width: 280px;
+            height: 350px;
             object-fit: cover;
-            /* Placeholder temporal si no tienes foto aún */
-            background-color: #ddd; 
-        }
-
-        .hero-text h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            border-bottom: 40px solid white; /* Espacio estilo polaroid abajo */
         }
 
         .hero-text .badge {
             display: inline-block;
             background: var(--accent-light);
             color: white;
-            padding: 5px 15px;
+            padding: 6px 20px;
             border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         /* --- BOTONES --- */
         .btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 15px 35px;
             border-radius: 50px;
             font-weight: bold;
-            font-size: 1rem;
-            margin: 10px;
-            border: none;
             cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
-        .btn-primary {
-            background-color: var(--accent);
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        .btn-primary:hover::before { left: 100%; }
+
+        .btn-outline { border: 2px solid var(--accent); color: var(--accent); background: transparent; }
+        .btn-outline:hover { background: var(--accent); color: white; }
+
+        /* --- SECCIÓN MI TRABAJO (NUEVA) --- */
+        .work-section { background: #fff; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            height: 250px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(44, 62, 80, 0.8));
+            padding: 20px;
             color: white;
+            opacity: 0;
+            transition: var(--transition);
         }
+        .gallery-item:hover .overlay { opacity: 1; }
 
-        .btn-outline {
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            background: transparent;
-        }
-
-        /* --- SECCIÓN SOBRE MÍ --- */
-        .about-section {
-            background: white;
-            text-align: center;
-        }
-
-        /* --- SECCIÓN SERVICIOS (GRID) --- */
+        /* --- SERVICIOS --- */
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
         }
-
         .service-card {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 15px;
-            border-top: 5px solid var(--accent);
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
             text-align: center;
+            border: 1px solid rgba(0,0,0,0.05);
         }
-
         .service-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        /* --- CONTACTO / FORMSPREE --- */
-        .contact-section {
-            background: var(--primary);
-            color: white;
-            text-align: center;
-        }
-        
-        .contact-section h2 { color: white; }
-
-        form {
-            max-width: 500px;
-            margin: 2rem auto;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        input, textarea {
-            padding: 15px;
-            border-radius: 8px;
-            border: none;
-            font-family: 'Lato', sans-serif;
-        }
-
-        button[type="submit"] {
-            background-color: var(--accent);
-            color: white;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
         }
 
         /* --- FOOTER --- */
         footer {
-            text-align: center;
-            padding: 2rem;
             background: #1a252f;
-            color: #7f8c8d;
-            font-size: 0.9rem;
+            color: #bdc3c7;
+            padding: 3rem 0;
+            text-align: center;
         }
 
         /* --- RESPONSIVE --- */
         @media (min-width: 768px) {
-            .hero-content {
-                flex-direction: row;
-                text-align: left;
-            }
-            .hero-text h1 { font-size: 3.5rem; }
+            .hero-content { flex-direction: row; text-align: left; justify-content: space-between; }
+            .hero-text h1 { font-size: 4rem; }
+            .nav-links { display: flex; }
+        }
+
+        @media (max-width: 767px) {
+            .nav-links { display: none; } /* Podrías agregar un menú hamburguesa aquí */
+            .hero-img { width: 220px; height: 300px; }
         }
     </style>
 </head>
 <body>
 
+    <nav>
+        <a href="#" class="logo-link">
+            <img src="favicon.png" alt="Logo" class="brand-logo" style="height: 40px;">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#sobre-mi">Enfoque</a></li>
+            <li><a href="#trabajo">Mi Trabajo</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="https://wa.me/5215581377798">Contacto</a></li>
+        </ul>
+    </nav>
+
     <header id="inicio">
         <div class="container hero-content">
-            <div class="hero-img-wrapper">
-                <img src="Psico_jesus_foto.jpeg" alt="Dr. Jesus Garcia" class="hero-img polaroid">
-            </div>
-            <div class="hero-text">
+            <div class="hero-text" data-aos="fade-right">
                 <span class="badge">MAESTRÍA EN CONCIENCIA PLENA APLICADA</span>
-                <h1>Mtro. Jesus Garcia Chavez</h1>
-                <p>Master en Conciencia Plena Aplicada. <br>Un espacio seguro para reconstruir tu bienestar emocional.<br> <strong>Cedula profesional: 14513295</strong> </p>
-                
+                <h1>Mtro. Jesus <br>Garcia Chavez</h1>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                    Un espacio seguro para reconstruir tu bienestar emocional.<br> 
+                    <strong>Cédula profesional: 13008253</strong>
+                </p>
                 <div class="cta-group">
                     <a href="https://wa.me/5215581377798" class="btn btn-primary efecto-flotar">
                         <i class="fab fa-whatsapp"></i> Agendar Cita
                     </a>
-                    <a href="#servicios" class="btn btn-outline efecto-flotar">
-                        Ver Servicios
-                    </a>
+                    <a href="#servicios" class="btn btn-outline efecto-flotar">Ver Servicios</a>
                 </div>
+            </div>
+            <div class="hero-img-wrapper" data-aos="fade-left">
+                <img src="Psico_jesus_foto.jpeg" alt="Dr. Jesus Garcia" class="hero-img polaroid">
             </div>
         </div>
     </header>
 
-    <section id="sobre-mi" class="about-section">
-        <div class="container">
-            <h2>Mi Enfoque Terapéutico</h2>
-            <p style="max-width: 700px; margin: 0 auto;">
-                Mi nombre es Jesus Garcia Chavez. Desde un enfoque en conciencia plena aplicada, creo firmemente en la capacidad de cada persona para sanar y crecer. Mi consultorio es un lugar libre de juicios donde trabajaremos juntos para entender tus procesos internos, ansiedad y relaciones.
+    <section id="sobre-mi" class="container" style="text-align: center;">
+        <div data-aos="zoom-in">
+            <h2 style="font-size: 2.5rem;">Mi Enfoque Terapéutico</h2>
+            <p style="max-width: 800px; margin: 2rem auto; font-size: 1.1rem;">
+                Hola, soy Jesús. Mi trabajo se basa en la <strong>Conciencia Plena Aplicada</strong>. Creo que todos tenemos la brújula interna para sanar; mi papel es ayudarte a quitar el ruido para que puedas escucharla. Aquí no hay juicios, solo un camino compartido hacia tu paz.
             </p>
         </div>
     </section>
 
-    <section id="servicios">
+    <section id="trabajo" class="work-section">
         <div class="container">
-            <h2 style="text-align: center;">¿Cómo puedo ayudarte?</h2>
-            <div class="services-grid">
-                <div class="service-card efecto-flotar">
-                    <div class="service-icon"><i class="fas fa-brain"></i></div>
-                    <h3>Terapia Individual</h3>
-                    <p>Atención focalizada en ansiedad, depresión y autoconocimiento.</p>
+            <h2 style="text-align: center;" data-aos="fade-up">Mi Trabajo y Espacio</h2>
+            <p style="text-align: center; color: var(--accent);">Vistazo a las consultas y talleres</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item" data-aos="flip-left">
+                    <img src="https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=500&q=80" alt="Consulta">
+                    <div class="overlay"><h4>Sesiones Individuales</h4><p>Atención personalizada.</p></div>
                 </div>
-                <div class="service-card efecto-flotar">
-                    <div class="service-icon"><i class="fas fa-user-friends"></i></div>
-                    <h3>Terapia de Pareja</h3>
-                    <p>Resolución de conflictos y mejora de la comunicación afectiva.</p>
+                <div class="gallery-item" data-aos="flip-left" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1573497619924-c78a70973ca2?auto=format&fit=crop&w=500&q=80" alt="Espacio">
+                    <div class="overlay"><h4>Nuestro Espacio</h4><p>Paz y comodidad.</p></div>
                 </div>
-                <div class="service-card efecto-flotar">
-                    <div class="service-icon"><i class="fas fa-laptop-medical"></i></div>
-                    <h3>Consulta Online</h3>
-                    <p>Sesiones flexibles a distancia con la misma calidez y profesionalismo.</p>
+                <div class="gallery-item" data-aos="flip-left" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=80" alt="Mindfulness">
+                    <div class="overlay"><h4>Talleres</h4><p>Grupos de conciencia plena.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-
+    <section id="servicios" class="container">
+        <h2 style="text-align: center; margin-bottom: 3rem;" data-aos="fade-up">¿Cómo puedo acompañarte?</h2>
+        <div class="services-grid">
+            <div class="service-card efecto-flotar" data-aos="fade-up">
+                <div class="service-icon"><i class="fas fa-brain"></i></div>
+                <h3>Terapia Individual</h3>
+                <p>Manejo de ansiedad, depresión y procesos de autoconocimiento profundo.</p>
+            </div>
+            <div class="service-card efecto-flotar" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-icon"><i class="fas fa-user-friends"></i></div>
+                <h3>Terapia de Pareja</h3>
+                <p>Reconectando desde la vulnerabilidad y la comunicación asertiva.</p>
+            </div>
+            <div class="service-card efecto-flotar" data-aos="fade-up" data-aos-delay="200">
+                <div class="service-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                <h3>Psiconcología</h3>
+                <p>Acompañamiento especializado para pacientes y familias en procesos médicos.</p>
+            </div>
+        </div>
+    </section>
 
     <footer>
-        <p>&copy; 2026 @SantiagoPsicoDev | Desarrollando autonomia</p>
+        <div class="container" style="padding: 0;">
+            <p>&copy; 2026 @SantiagoPsicoDev | Autonomia Digital </p>
+            <div style="margin-top: 1rem;">
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-instagram"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Efecto de scroll en la navegación
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '0.5rem 5%';
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                nav.style.padding = '1rem 5%';
+            }
+        });
+    </script>
 </body>
 </html>
